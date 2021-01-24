@@ -6,13 +6,19 @@ Rails.application.routes.draw do
   get     '/course_registries',     to: 'course_registries#index'
   get     '/new_course_registry',   to: 'course_registries#new'
   get     '/login',                 to: 'sessions#create'
-  get     '/new_course',            to: 'courses#new'
-  post    '/courses',               to: 'courses#create'
+  #get     '/new_course',            to: 'courses#new'
+  #post    '/courses',               to: 'courses#create'
   post    '/course_registries',     to: 'course_registries#create'
   resources :teachers, only: [:index, :new, :create] do
     member do
-      get :voting, :voters
+      get :voting, :voters, :voted_courses
     end
   end
-  resources :teacher_votes,        only: [:create]
+  resources :courses, only: [:new, :create] do
+    member do
+      get :course_voters
+    end
+  end
+  resources :teacher_votes, only: [:create]
+  resources :course_votes, only: [:create]
 end

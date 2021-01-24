@@ -6,6 +6,8 @@ class Teacher < ApplicationRecord
                                     foreign_key: "voted_id"
   has_many :voting, through: :active_tearcher_votes, source: :voted
   has_many :voters, through: :passive_tearcher_votes, source: :voter
+  has_many :course_votes
+  has_many :voted_courses, through: :course_votes, source: :course
   before_save { email.downcase! }
   validates :name, presence: true, length: { maximum: 100 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
@@ -19,6 +21,14 @@ class Teacher < ApplicationRecord
 
   def voting?(other_teacher)
     voting.include?(other_teacher)
+  end
+                    
+  def vote_course(course)
+    voted_courses << course
+  end
+
+  def course_voted?(course)
+    voted_courses.include?(course)
   end
   
 end
