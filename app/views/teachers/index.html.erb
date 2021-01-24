@@ -1,10 +1,10 @@
 <% provide(:title, 'All Teachers') %>
 <div class="jumbotron">
   <h1>All Teachers</h1>
-  <ul class="teachers">
+  <ul class="item_list">
     <% @teachers.each do |teacher| %>
      <li>
-       <strong><%= teacher.name %></strong> - <%= teacher.email %>
+        <strong><%= link_to teacher.name, login_path(:user_id => teacher.id) %></strong> - <%= teacher.email %>
      </li>
     <% end %>
     <br/>

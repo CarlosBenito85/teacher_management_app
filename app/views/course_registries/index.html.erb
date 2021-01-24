@@ -1,0 +1,13 @@
+<% provide(:title, 'All Course Registries') %>
+<div class="jumbotron">
+  <h1><%= current_teacher.name %>: All Course Registries</h1>
+    <ul class="item_list">
+    <% @course_registries.each do |course_registry| %>
+     <li>
+        <%= course_registry.teacher_id %> - <%= course_registry.course_id %>
+     </li>
+    <% end %>
+    <br/>
+    <%= link_to "Registry new Course", new_course_registry_path, class: "btn center btn-lg btn-primary" %>
+  </ul>
+</div>

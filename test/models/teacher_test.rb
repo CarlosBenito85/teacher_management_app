@@ -3,7 +3,7 @@ require 'test_helper'
 class TeacherTest < ActiveSupport::TestCase
   
   def setup
-    @teacher = Teacher.new(name: "Test User", email: "teacher@test.com")
+    @teacher = teachers(:test_teacher)
   end
   
   test "should be valid" do
