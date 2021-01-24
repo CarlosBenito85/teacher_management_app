@@ -4,7 +4,7 @@
     <ul class="item_list">
     <% @course_registries.each do |course_registry| %>
      <li>
-        <%= course_registry.teacher_id %> - <%= course_registry.course_id %>
+        <%= course_registry.teacher_id %> <%= course_registry.teacher.name %> - <%= course_registry.course_id %> <%= course_registry.course.title %>
      </li>
     <% end %>
     <br/>
