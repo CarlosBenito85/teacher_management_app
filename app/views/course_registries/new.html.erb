@@ -1,0 +1,20 @@
+<% provide(:title, 'Create Course Registry') %>
+<div class="jumbotron">
+  <h1><%= current_teacher.name %>: All Course</h1>
+    <ul class="item_list">
+    <% @courses.each do |course| %>
+     <li>
+        <%= form_with(model: @course_registry, remote: true) do |f| %>
+          <div><%= hidden_field_tag :teacher_id, current_teacher.id %></div>
+          <div><%= hidden_field_tag :course_id, course.id %></div>
+          <%= course.title %>
+          <%= f.submit "Registry", class: "btn btn-primary" %>
+        <% end %>
+       
+        
+     </li>
+    <% end %>
+    <br/>
+    <%= link_to "Create new Course", new_course_path, class: "btn center btn-lg btn-primary" %>
+  </ul>
+</div>
