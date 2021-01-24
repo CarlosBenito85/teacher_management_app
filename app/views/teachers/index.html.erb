@@ -1,0 +1,13 @@
+<% provide(:title, 'All Teachers') %>
+<div class="jumbotron">
+  <h1>All Teachers</h1>
+  <ul class="teachers">
+    <% @teachers.each do |teacher| %>
+     <li>
+       <strong><%= teacher.name %></strong> - <%= teacher.email %>
+     </li>
+    <% end %>
+    <br/>
+    <%= link_to "Create new Teacher", new_teacher_path, class: "btn center btn-lg btn-primary" %>
+  </ul>
+</div>
