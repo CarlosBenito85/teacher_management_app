@@ -3,3 +3,7 @@
 test_teacher:
   name: Test Teacher
   email: teacher@test.com
+  
+test_professor:
+  name: Test Professor
+  email: professor@test.com

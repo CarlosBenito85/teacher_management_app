@@ -1,13 +1,35 @@
 <% provide(:title, 'All Course Registries') %>
+<% @teacher ||= current_teacher %>
 <div class="jumbotron">
-  <h1><%= current_teacher.name %>: All Course Registries</h1>
-    <ul class="item_list">
+  <h1><%= @teacher.name %>: All Course Registries</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Teacher</th>
+        <th scope="col">Course</th>
+      </tr>
+    </thead>
+    <tbody>
     <% @course_registries.each do |course_registry| %>
-     <li>
-        <%= course_registry.teacher_id %> <%= course_registry.teacher.name %> - <%= course_registry.course_id %> <%= course_registry.course.title %>
-     </li>
+     <tr>
+        <td>
+          <%= course_registry.teacher.name %> (<%= course_registry.teacher.voters.count %> voters)
+          <% if @teacher.voting?(course_registry.teacher) %>
+              <br/><button type="button" disabled="true" style="width:130px; height:34px">Teacher Voted</button>
+          <% else %>
+            <%= form_with(model: course_registry.teacher.active_tearcher_votes.build, local: true) do |f| %>
+              <div><%= hidden_field_tag :voted_id, course_registry.teacher.id %></div>
+              <%= f.submit "Vote Teacher", class: "btn btn-primary", disable: true, style: "width:130px" %>
+            <% end %>
+          <% end %>
+        </td>
+        <td>
+          <%= course_registry.course.title %>
+        </td>
+     </tr>
     <% end %>
-    <br/>
-    <%= link_to "Registry new Course", new_course_registry_path, class: "btn center btn-lg btn-primary" %>
-  </ul>
+    </tbody>
+  </table>
+  <br/>
+  <%= link_to "Registry new Course", new_course_registry_path, class: "btn center btn-lg btn-primary" %>
 </div>

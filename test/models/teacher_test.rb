@@ -54,4 +54,21 @@ class TeacherTest < ActiveSupport::TestCase
     assert_not duplicate_teacher.valid?
   end
   
+  test "should vote a teacher and has voting" do
+    test_teacher = teachers(:test_teacher)
+    test_professor = teachers(:test_professor)
+    assert_not test_teacher.voting?(test_professor)
+    test_teacher.vote(test_professor)
+    assert test_teacher.voting?(test_professor)
+  end
+  
+  test "should vote a teacher and has voting & voters" do
+    test_teacher = teachers(:test_teacher)
+    test_professor = teachers(:test_professor)
+    assert_not test_teacher.voting?(test_professor)
+    test_teacher.vote(test_professor)
+    assert test_teacher.voting?(test_professor)
+    assert test_professor.voters.include?(test_teacher)
+  end
+  
 end

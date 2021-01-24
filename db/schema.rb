@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_24_010906) do
+ActiveRecord::Schema.define(version: 2021_01_24_120151) do
 
   create_table "course_registries", force: :cascade do |t|
     t.integer "teacher_id", null: false
@@ -27,6 +27,16 @@ ActiveRecord::Schema.define(version: 2021_01_24_010906) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["title"], name: "index_courses_on_title", unique: true
+  end
+
+  create_table "teacher_votes", force: :cascade do |t|
+    t.integer "voter_id"
+    t.integer "voted_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["voted_id"], name: "index_teacher_votes_on_voted_id"
+    t.index ["voter_id", "voted_id"], name: "index_teacher_votes_on_voter_id_and_voted_id", unique: true
+    t.index ["voter_id"], name: "index_teacher_votes_on_voter_id"
   end
 
   create_table "teachers", force: :cascade do |t|
