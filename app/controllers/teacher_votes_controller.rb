@@ -1,7 +1,7 @@
 class TeacherVotesController < ApplicationController
 
   def create
-    voted_teacher = Teacher.find(params[:voted_id])
+    voted_teacher = Teacher.find(params[:voted_teacher_id])
     begin
       current_teacher.vote_theacher(voted_teacher)
       flash[:success] = "Theacher voted successfully!"

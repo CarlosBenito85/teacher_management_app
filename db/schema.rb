@@ -40,13 +40,13 @@ ActiveRecord::Schema.define(version: 2021_01_24_164319) do
   end
 
   create_table "teacher_votes", force: :cascade do |t|
-    t.integer "voter_id"
-    t.integer "voted_id"
+    t.integer "voter_teacher_id"
+    t.integer "voted_teacher_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["voted_id"], name: "index_teacher_votes_on_voted_id"
-    t.index ["voter_id", "voted_id"], name: "index_teacher_votes_on_voter_id_and_voted_id", unique: true
-    t.index ["voter_id"], name: "index_teacher_votes_on_voter_id"
+    t.index ["voted_teacher_id"], name: "index_teacher_votes_on_voted_teacher_id"
+    t.index ["voter_teacher_id", "voted_teacher_id"], name: "index_teacher_votes_on_voter_teacher_id_and_voted_teacher_id", unique: true
+    t.index ["voter_teacher_id"], name: "index_teacher_votes_on_voter_teacher_id"
   end
 
   create_table "teachers", force: :cascade do |t|

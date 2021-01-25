@@ -1,11 +1,11 @@
 class Teacher < ApplicationRecord
   has_many :course_registry
   has_many :active_tearcher_votes, class_name: "TeacherVote",
-                                   foreign_key: "voter_id"
+                                   foreign_key: "voter_teacher_id"
   has_many :passive_tearcher_votes, class_name:  "TeacherVote",
-                                    foreign_key: "voted_id"
-  has_many :vouted_teachers, through: :active_tearcher_votes, source: :voted
-  has_many :teacher_voters, through: :passive_tearcher_votes, source: :voter
+                                    foreign_key: "voted_teacher_id"
+  has_many :vouted_teachers, through: :active_tearcher_votes, source: :voted_teacher
+  has_many :teacher_voters, through: :passive_tearcher_votes, source: :voter_teacher
   has_many :course_votes
   has_many :voted_courses, through: :course_votes, source: :course
   before_save { email.downcase! }
