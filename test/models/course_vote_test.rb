@@ -21,4 +21,10 @@ class CourseVoteTest < ActiveSupport::TestCase
     assert_not @course_vote.valid?
   end
   
+  test "course_vote should be unique" do
+    duplicate_course_vote = @course_vote.dup
+    @course_vote.save
+    assert_not duplicate_course_vote.valid?
+  end
+  
 end

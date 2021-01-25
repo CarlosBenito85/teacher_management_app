@@ -4,8 +4,8 @@ class Teacher < ApplicationRecord
                                    foreign_key: "voter_id"
   has_many :passive_tearcher_votes, class_name:  "TeacherVote",
                                     foreign_key: "voted_id"
-  has_many :voting, through: :active_tearcher_votes, source: :voted
-  has_many :voters, through: :passive_tearcher_votes, source: :voter
+  has_many :vouted_teachers, through: :active_tearcher_votes, source: :voted
+  has_many :teacher_voters, through: :passive_tearcher_votes, source: :voter
   has_many :course_votes
   has_many :voted_courses, through: :course_votes, source: :course
   before_save { email.downcase! }
@@ -15,19 +15,19 @@ class Teacher < ApplicationRecord
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: true
                     
-  def vote(other_teacher)
-    voting << other_teacher
+  def vote_theacher(other_teacher)
+    vouted_teachers << other_teacher
   end
 
-  def voting?(other_teacher)
-    voting.include?(other_teacher)
+  def voted_teacher?(other_teacher)
+    vouted_teachers.include?(other_teacher)
   end
                     
   def vote_course(course)
     voted_courses << course
   end
 
-  def course_voted?(course)
+  def voted_course?(course)
     voted_courses.include?(course)
   end
   

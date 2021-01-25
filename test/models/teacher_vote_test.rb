@@ -20,5 +20,11 @@ class TeacherVoteTest < ActiveSupport::TestCase
     @teacher_vote.voted_id = nil
     assert_not @teacher_vote.valid?
   end
+  
+  test "teacher_vote should be unique" do
+    duplicate_teacher_vote = @teacher_vote.dup
+    @teacher_vote.save
+    assert_not duplicate_teacher_vote.valid?
+  end
 
 end

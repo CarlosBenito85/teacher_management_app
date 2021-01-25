@@ -20,4 +20,10 @@ class CourseTest < ActiveSupport::TestCase
     assert_not @course.valid?
   end
   
+  test "title should be unique" do
+    duplicate_course = @course.dup
+    @course.save
+    assert_not duplicate_course.valid?
+  end
+  
 end

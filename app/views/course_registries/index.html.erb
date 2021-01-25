@@ -1,21 +1,24 @@
-<% provide(:title, 'All Course Registries') %>
+<% provide(:title, 'Course Registration List') %>
 <% @teacher ||= current_teacher %>
 <div class="jumbotron">
-  <h1><%= @teacher.name %>: All Course Registries</h1>
+  <h2><%= @teacher.name %></h2>
+  <h2>Course Registration List</h2>
   <table class="table">
     <thead>
       <tr>
-        <th scope="col">Teacher</th>
-        <th scope="col">Course</th>
+        <th scope="col" colspan="2">Teacher</th>
+        <th scope="col" colspan="2">Course</th>
       </tr>
     </thead>
     <tbody>
     <% @course_registries.each do |course_registry| %>
      <tr>
+        <td style="vertical-align: middle">
+          <%= course_registry.teacher.name %> <strong><em>(<%= course_registry.teacher.teacher_voters.count %> votes)</em></strong>
+        </td>
         <td>
-          <%= course_registry.teacher.name %> (<%= course_registry.teacher.voters.count %> voters)
-          <% if @teacher.voting?(course_registry.teacher) %>
-              <br/><button type="button" disabled="true" style="width:130px; height:34px">Teacher Voted</button>
+          <% if @teacher.voted_teacher?(course_registry.teacher) %>
+            <button type="button" disabled="true" style="width:130px; height:34px">Teacher Voted</button>
           <% else %>
             <%= form_with(model: course_registry.teacher.active_tearcher_votes.build, local: true) do |f| %>
               <div><%= hidden_field_tag :voted_id, course_registry.teacher.id %></div>
@@ -23,24 +26,24 @@
             <% end %>
           <% end %>
         </td>
+        <td style="vertical-align: middle">
+          <%= course_registry.course.title %> <strong><em>(<%= course_registry.course.course_voters.count %> votes)</em></strong>
+        </td>
         <td>
-          
-          
-          <%= course_registry.course.title %> (<%= course_registry.course.course_voters.count %> voters)
-          <% if @teacher.course_voted?(course_registry.course) %>
-              <br/><button type="button" disabled="true" style="width:130px; height:34px">Course Voted</button>
+          <% if @teacher.voted_course?(course_registry.course) %>
+            <button type="button" disabled="true" style="width:130px; height:34px">Course Voted</button>
           <% else %>
             <%= form_with(model: course_registry.teacher.course_votes.build, local: true) do |f| %>
               <div><%= hidden_field_tag :course_id, course_registry.course.id %></div>
               <%= f.submit "Vote Course", class: "btn btn-primary", disable: true, style: "width:130px" %>
             <% end %>
           <% end %>
-          
         </td>
      </tr>
     <% end %>
     </tbody>
   </table>
-  <br/>
-  <%= link_to "Registry new Course", new_course_registry_path, class: "btn center btn-lg btn-primary" %>
+  <div style="text-align:center">
+    <%= link_to "Register New Course", new_course_registry_path, class: "btn center btn-lg btn-primary", style: "margin-top:5px" %>
+  </div>
 </div>

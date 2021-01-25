@@ -15,7 +15,7 @@ class CourseRegistriesController < ApplicationController
       flash[:success] = "Course Registry created successfully!"
       redirect_to course_registries_url
     else
-      flash[:warning] = "Previously registered course"
+      flash[:warning] = "Course previously registered"
       redirect_to new_course_registry_url
     end
   end

@@ -1,13 +1,17 @@
-<% provide(:title, 'All Teachers') %>
+<% provide(:title, 'Teachers List') %>
 <div class="jumbotron">
-  <h1>All Teachers</h1>
+  <h2>
+    Page to simulate the teacher login in the Teacher Managamente APP.</br>
+    Click on the teacher name to continue.
+  </h2>
   <ul class="item_list">
     <% @teachers.each do |teacher| %>
      <li>
         <strong><%= link_to teacher.name, login_path(:user_id => teacher.id) %></strong> - <%= teacher.email %>
      </li>
     <% end %>
-    <br/>
-    <%= link_to "Create new Teacher", new_teacher_path, class: "btn btn-lg btn-primary" %>
   </ul>
+  <div style="text-align:center">
+    <%= link_to "Create New Teacher", new_teacher_path, class: "btn btn-lg btn-primary", style: "margin-top:20px" %>
+  </div>
 </div>

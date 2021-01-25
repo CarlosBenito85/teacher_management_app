@@ -1,19 +1,32 @@
-<% provide(:title, 'Create Course Registry') %>
+<% provide(:title, 'Course Registration') %>
 <% @teacher ||= current_teacher %>
 <div class="jumbotron">
-  <h1><%= @teacher.name %>: All Course</h1>
-  <ul class="item_list">
-    <% @courses.each do |course| %>
-      <li>
-        <%= form_with(model: @course_registry, remote: true) do |f| %>
-          <div><%= hidden_field_tag :teacher_id, @teacher.id %></div>
-          <div><%= hidden_field_tag :course_id, course.id %></div>
-          <%= course.title %>
-          <%= f.submit "Registry", class: "btn btn-primary" %>
-        <% end %>
-      </li>
-    <% end %>
-    <br/>
-    <%= link_to "Create new Course", new_course_path, class: "btn btn-lg btn-primary" %>
-  </ul>
+  <h2><%= @teacher.name %></h2>
+  <h2>Course List</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col" colspan="2">Course</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @courses.each do |course| %>
+        <tr>
+          <td style="vertical-align: middle">
+            <%= course.title %>
+          </td>
+          <td>
+            <%= form_with(model: @course_registry, remote: true) do |f| %>
+              <div><%= hidden_field_tag :teacher_id, @teacher.id %></div>
+              <div><%= hidden_field_tag :course_id, course.id %></div>
+              <%= f.submit "Register Course", class: "btn btn-primary float-right", style: "width:130px; margin-right:10px" %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <div style="text-align:center">
+    <%= link_to "Create New Course", new_course_path, class: "btn btn-lg btn-primary", style: "margin-top:5px" %>
+  </div>
 </div>

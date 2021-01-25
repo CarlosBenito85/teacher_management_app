@@ -1,24 +1,19 @@
 Rails.application.routes.draw do
   root    'static_pages#home'
-  #get     '/teachers',                  to: 'teachers#index'
-  #get     '/new_teacher',               to: 'teachers#new'
-  #post    '/teachers',                  to: 'teachers#create'
-  get     '/course_registries',     to: 'course_registries#index'
-  get     '/new_course_registry',   to: 'course_registries#new'
-  get     '/login',                 to: 'sessions#create'
-  #get     '/new_course',            to: 'courses#new'
-  #post    '/courses',               to: 'courses#create'
-  post    '/course_registries',     to: 'course_registries#create'
-  resources :teachers, only: [:index, :new, :create] do
+  get     '/login',               to: 'sessions#create'
+  resources :teachers,            only: [:index, :new, :create] do
     member do
-      get :voting, :voters, :voted_courses
+      get :vouted_teachers, 
+          :teacher_voters, 
+          :voted_courses
     end
   end
-  resources :courses, only: [:new, :create] do
+  resources :courses,             only: [:new, :create] do
     member do
       get :course_voters
     end
   end
-  resources :teacher_votes, only: [:create]
-  resources :course_votes, only: [:create]
+  resources :course_registries,   only: [:index, :new, :create]
+  resources :teacher_votes,       only: [:create]
+  resources :course_votes,        only: [:create]
 end
